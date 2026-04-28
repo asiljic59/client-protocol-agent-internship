@@ -1,0 +1,21 @@
+# --- .NET (Backend) ---
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+*.user
+*.suo
+appsettings.Development.json
+
+# --- React (Frontend) ---
+front/node_modules/
+front/build/
+front/dist/
+front/.env.local
+front/.env.*.local
+front/npm-debug.log*
+
+# --- OS specifični fajlovi ---
+.DS_Store
+Thumbs.db
+

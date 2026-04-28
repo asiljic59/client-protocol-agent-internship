@@ -31,3 +31,4 @@
 /Users/asiljic59/Desktop/Intern/back/obj/Debug/net8.0/back.pdb
 /Users/asiljic59/Desktop/Intern/back/obj/Debug/net8.0/back.genruntimeconfig.cache
 /Users/asiljic59/Desktop/Intern/back/obj/Debug/net8.0/ref/back.dll
+/Users/asiljic59/Desktop/Intern/back/obj/Debug/net8.0/back.sourcelink.json

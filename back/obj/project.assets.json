@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AWSSDK.BedrockAgentRuntime/4.0.8.21": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[4.0.4, 5.0.0)"
+        },
+        "compile": {
+          "lib/net8.0/AWSSDK.BedrockAgentRuntime.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.BedrockAgentRuntime.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "AWSSDK.Core/4.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/AWSSDK.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/8.0.25": {
         "type": "package",
         "dependencies": {
@@ -111,6 +140,53 @@
     }
   },
   "libraries": {
+    "AWSSDK.BedrockAgentRuntime/4.0.8.21": {
+      "sha512": "ZJ97x5HsTp9iWvF22Vh/V0CXWR1FIioxzDjUd6nyXIFD8bqgD+RLoZbeaT6adrpScOQUNiLkWflMV7ixSXVaXw==",
+      "type": "package",
+      "path": "awssdk.bedrockagentruntime/4.0.8.21",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/AWSSDK.BedrockAgentRuntime.CodeAnalysis.dll",
+        "analyzers/dotnet/cs/SharedAnalysisCode.dll",
+        "awssdk.bedrockagentruntime.4.0.8.21.nupkg.sha512",
+        "awssdk.bedrockagentruntime.nuspec",
+        "images/AWSLogo.png",
+        "lib/net472/AWSSDK.BedrockAgentRuntime.dll",
+        "lib/net472/AWSSDK.BedrockAgentRuntime.xml",
+        "lib/net8.0/AWSSDK.BedrockAgentRuntime.dll",
+        "lib/net8.0/AWSSDK.BedrockAgentRuntime.xml",
+        "lib/netcoreapp3.1/AWSSDK.BedrockAgentRuntime.dll",
+        "lib/netcoreapp3.1/AWSSDK.BedrockAgentRuntime.xml",
+        "lib/netstandard2.0/AWSSDK.BedrockAgentRuntime.dll",
+        "lib/netstandard2.0/AWSSDK.BedrockAgentRuntime.xml",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "AWSSDK.Core/4.0.4": {
+      "sha512": "RjBk1WDrOCpsSRGn6j2lYhgiyYnXEhMctwJevNnIPIIGpgj49ifbU6FmG1Dk+1M/VSuqeTQ1WVsssziTty7b2w==",
+      "type": "package",
+      "path": "awssdk.core/4.0.4",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "awssdk.core.4.0.4.nupkg.sha512",
+        "awssdk.core.nuspec",
+        "images/AWSLogo.png",
+        "lib/net472/AWSSDK.Core.dll",
+        "lib/net472/AWSSDK.Core.xml",
+        "lib/net8.0/AWSSDK.Core.dll",
+        "lib/net8.0/AWSSDK.Core.xml",
+        "lib/netcoreapp3.1/AWSSDK.Core.dll",
+        "lib/netcoreapp3.1/AWSSDK.Core.xml",
+        "lib/netstandard2.0/AWSSDK.Core.dll",
+        "lib/netstandard2.0/AWSSDK.Core.xml",
+        "tools/account-management.ps1"
+      ]
+    },
     "Microsoft.AspNetCore.OpenApi/8.0.25": {
       "sha512": "tdgVJejEelJ13udqJW+fHw9ZVHI8LjdeYrWdoD+nlsnKU4SMajpmx1sQEoqzb1tr9oWdD87agIkB5+x7VO3Lkw==",
       "type": "package",
@@ -477,6 +553,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AWSSDK.BedrockAgentRuntime >= 4.0.8.21",
       "Microsoft.AspNetCore.OpenApi >= 8.0.25",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
@@ -518,6 +595,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AWSSDK.BedrockAgentRuntime": {
+            "target": "Package",
+            "version": "[4.0.8.21, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[8.0.25, )"

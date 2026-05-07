@@ -2,6 +2,10 @@
 
 ## Client Trial Generator Protocol
 
+### Setup
+- Pokrenite backend u folderu Intern/backend komandom `dotnet run`
+- Pokrenite frontend u folderu Intern/frontend komandom `npm start`
+
 ### 1. Workflow of agent on AWS
 
 - Asking the agent a question, for example: "Create a Phase 2 protocol template for a randomized controlled trial testing a new GLP-1 agonist in type 2 diabetes"

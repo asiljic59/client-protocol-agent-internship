@@ -1,3 +1,6 @@
+using QuestPDF.Infrastructure;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,7 +9,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        policy => policy.AllowAnyOrigin() // ili .WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
+builder.Services.AddScoped<AwsService>();
+
+QuestPDF.Settings.License = LicenseType.Evaluation;
+
 var app = builder.Build();
+
+app.UseCors("AllowReact");
 
 app.MapControllers();
 

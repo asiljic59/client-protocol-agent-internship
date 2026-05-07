@@ -3,17 +3,14 @@ using Amazon.BedrockAgentRuntime;
 using Amazon.BedrockAgentRuntime.Model;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.VisualBasic;
+using System.Text;
 
 public class AwsService()
 {
-    private static AmazonBedrockAgentRuntimeClient client = new AmazonBedrockAgentRuntimeClient(RegionEndpoint.EUCentral1);
+    private readonly AmazonBedrockAgentRuntimeClient _client = new AmazonBedrockAgentRuntimeClient(RegionEndpoint.EUCentral1);
+    private readonly string _agentId = "IGYYQY3KMD";
+    private readonly string _agentAlias = "RTNNYSQQV8";
 
-    private static InvokeAgentRequest request = new InvokeAgentRequest{
-        AgentId = "",
-        AgentAliasId = "",
-        SessionId = Guid.NewGuid().ToString(),
-        InputText = ""
-    };
     
     public async Task<InvokeAgentResponse?> GenerateProtocol(Research study)
     {
@@ -31,15 +28,15 @@ public class AwsService()
 
         var request = new InvokeAgentRequest
         {
-            AgentId = "OHR3RRDQQ5",
-            AgentAliasId = "2KHPYNWIQS",
+            AgentId = this._agentId,
+            AgentAliasId = this._agentAlias,
             SessionId = Guid.NewGuid().ToString(),
             InputText = formattedInput 
         };
 
         try 
         {
-            var response = await client.InvokeAgentAsync(request);
+            var response = await _client.InvokeAgentAsync(request);
             
             return response;
         }
@@ -48,6 +45,27 @@ public class AwsService()
             Console.WriteLine($"Greška: {ex.Message}");
             return null;
         }
+    }
+
+    public async Task<string> GetResponseText(InvokeAgentResponse response)
+    {
+        var sb = new StringBuilder();
+
+        await foreach (var ev in response.Completion)
+        {
+            if (ev is PayloadPart chunk)
+            {
+                using var reader = new StreamReader(chunk.Bytes);
+                var text = await reader.ReadToEndAsync();
+
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    sb.Append(text);
+                }
+            }
+        }
+
+        return sb.ToString();
     }
 
 

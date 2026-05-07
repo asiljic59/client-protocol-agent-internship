@@ -1,0 +1,1 @@
+const apiUrl = 'localhost:4258/api'

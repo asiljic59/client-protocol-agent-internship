@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-class HttpService{
-    constructor(baseURL = 'http://localhost:5294/'){
+class HttpService {
+    constructor(baseURL = 'http://localhost:5294/') {
         this.baseURL = baseURL;
-        this.instance = axios.create ({baseURL : this.baseURL});
+        this.instance = axios.create({ baseURL: this.baseURL });
+        this.defaultHeaders = { 'Content-Type': 'application/json' };
     }
 
-    async request(method, url, data = null, customHeaders = {}) {
+g
+     request(method, url, data = null, customHeaders = {}, responseType = 'json') {
         const headers = { ...this.defaultHeaders, ...customHeaders };
         const source = axios.CancelToken.source();
 
@@ -14,7 +16,8 @@ class HttpService{
             method,
             url,
             headers,
-            cancelToken: source.token
+            responseType, //response type cuz its not always the same
+            cancelToken: source.token,
         };
 
         if (data) {
@@ -27,7 +30,10 @@ class HttpService{
         };
     }
 
-    post(url,data){
-        return this.request('post',url,data);
+    // 2. Update post to accept the 3rd argument
+    post(url, data, responseType = 'json') {
+        return this.request('post', url, data, {}, responseType);
     }
 }
+
+export default HttpService;

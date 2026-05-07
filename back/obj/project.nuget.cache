@@ -1,18 +1,34 @@
 {
   "version": 2,
-  "dgSpecHash": "Zb9Bqv4cjWKcUAFOAvXhRBVZpWbsE96SQilYO6NbX9FaoZ0uzXRIUrgO6srxQ+9TV7CIJ+scftCHAXzwrAVhHQ==",
+  "dgSpecHash": "sSTGdisO/JHsWDBuV9B01odpeH3QIChaToRUhqFFnmcd3Dzt9z9Aq/7zg+mZdogJ4/DtJ1PL9Xs7/sweqc8fAA==",
   "success": true,
   "projectFilePath": "/Users/asiljic59/Desktop/Intern/back/back.csproj",
   "expectedPackageFiles": [
     "/Users/asiljic59/.nuget/packages/awssdk.bedrockagentruntime/4.0.8.21/awssdk.bedrockagentruntime.4.0.8.21.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/awssdk.core/4.0.4/awssdk.core.4.0.4.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/markdig/1.1.3/markdig.1.1.3.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/microsoft.aspnetcore.openapi/8.0.25/microsoft.aspnetcore.openapi.8.0.25.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.bcl.asyncinterfaces/10.0.3/microsoft.bcl.asyncinterfaces.10.0.3.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.dependencyinjection/10.0.0/microsoft.extensions.dependencyinjection.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.0/microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.logging/10.0.0/microsoft.extensions.logging.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.logging.abstractions/10.0.0/microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.options/10.0.0/microsoft.extensions.options.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.extensions.primitives/10.0.0/microsoft.extensions.primitives.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/microsoft.io.recyclablememorystream/3.0.1/microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/puppeteersharp/24.40.0/puppeteersharp.24.40.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/questpdf/2026.2.4/questpdf.2026.2.4.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore.swagger/6.6.2/swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.6.2/swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
-    "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
+    "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/system.diagnostics.diagnosticsource/10.0.0/system.diagnostics.diagnosticsource.10.0.0.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/system.io.pipelines/10.0.3/system.io.pipelines.10.0.3.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/system.text.encodings.web/10.0.3/system.text.encodings.web.10.0.3.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/system.text.json/10.0.3/system.text.json.10.0.3.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/webdriverbidi/0.0.45/webdriverbidi.0.0.45.nupkg.sha512"
   ],
   "logs": []
 }

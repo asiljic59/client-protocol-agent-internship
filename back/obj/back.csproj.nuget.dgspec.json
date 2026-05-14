@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[8.0.25, )"
             },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.9, )"
+            },
             "PuppeteerSharp": {
               "target": "Package",
               "version": "[24.40.0, )"

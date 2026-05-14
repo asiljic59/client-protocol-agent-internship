@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sSTGdisO/JHsWDBuV9B01odpeH3QIChaToRUhqFFnmcd3Dzt9z9Aq/7zg+mZdogJ4/DtJ1PL9Xs7/sweqc8fAA==",
+  "dgSpecHash": "1Tv5jrHEzRiNeq59nM3fIXVvvMRkBYfLmMr1aeKekPdcLxdj4Me+eckLorr3MHx4XPF3WSwKL8GxdGuxmb4zHA==",
   "success": true,
   "projectFilePath": "/Users/asiljic59/Desktop/Intern/back/back.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "/Users/asiljic59/.nuget/packages/microsoft.extensions.primitives/10.0.0/microsoft.extensions.primitives.10.0.0.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/microsoft.io.recyclablememorystream/3.0.1/microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
+    "/Users/asiljic59/.nuget/packages/pdfpig/0.1.9/pdfpig.0.1.9.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/puppeteersharp/24.40.0/puppeteersharp.24.40.0.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/questpdf/2026.2.4/questpdf.2026.2.4.nupkg.sha512",
     "/Users/asiljic59/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",

@@ -34,6 +34,21 @@ g
     post(url, data, responseType = 'json') {
         return this.request('post', url, data, {}, responseType);
     }
+
+    postForm(url, formData, responseType = 'json') {
+        const source = axios.CancelToken.source();
+        const config = {
+            method: 'post',
+            url,
+            data: formData,
+            responseType,
+            cancelToken: source.token,
+        };
+        return {
+            request: this.instance(config),
+            cancel: source.cancel,
+        };
+    }
 }
 
 export default HttpService;

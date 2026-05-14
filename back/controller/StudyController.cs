@@ -1,90 +1,118 @@
-using Markdig;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using PuppeteerSharp;
-using PuppeteerSharp.Media;
 using Microsoft.AspNetCore.Mvc;
+using UglyToad.PdfPig;
+using UglyToad.PdfPig.Content;
 
 [ApiController]
 [Route("api/[controller]")]
 public class StudyController : ControllerBase
 {
     private readonly AwsService _awsService;
+    private readonly ProtocolPdfService _protocolPdfService;
 
-    public StudyController(AwsService awsService)
+    public StudyController(AwsService awsService, ProtocolPdfService protocolPdfService)
     {
         _awsService = awsService;
+        _protocolPdfService = protocolPdfService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostStudy([FromBody] Research research)
+    [RequestSizeLimit(50_000_000)]
+    public async Task<IActionResult> PostStudy([FromForm] IFormFile? synopsis, [FromForm] string? notes)
     {
-        if (research == null) return BadRequest("Podaci nisu stigli!");
+        if ((synopsis == null || synopsis.Length == 0) && string.IsNullOrWhiteSpace(notes))
+            return BadRequest("Upload a synopsis PDF or provide notes.");
 
-        var result = await _awsService.GenerateProtocol(research);
+        string synopsisText = string.Empty;
+        if (synopsis != null && synopsis.Length > 0)
+        {
+            if (!string.Equals(Path.GetExtension(synopsis.FileName), ".pdf", StringComparison.OrdinalIgnoreCase))
+                return BadRequest("Only PDF files are accepted.");
+
+            try
+            {
+                synopsisText = await ExtractPdfText(synopsis);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PDF extraction error: {ex.Message}");
+                return BadRequest("Could not read the uploaded PDF.");
+            }
+        }
+
+        var result = await _awsService.GenerateProtocol(synopsisText, notes);
         if (result == null)
             return StatusCode(500, "Greska pri generisanju protokola");
 
         string generatedText = await _awsService.GetResponseText(result);
-
-        // Convert Markdown → HTML
-        var pipeline = new MarkdownPipelineBuilder()
-            .UseAdvancedExtensions() // tables, task lists, etc.
-            .Build();
-        string html = Markdown.ToHtml(generatedText, pipeline);
-
-        // Wrap in a full HTML document with basic styling
-        string css = @"
-            body { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.6; }
-            h1 { font-size: 22px; border-bottom: 2px solid #333; padding-bottom: 6px; }
-            h2 { font-size: 18px; color: #2c3e50; margin-top: 24px; }
-            h3 { font-size: 15px; color: #34495e; }
-            table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-            th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
-            th { background-color: #f0f0f0; font-weight: bold; }
-            code, pre { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
-            blockquote { border-left: 4px solid #ccc; padding-left: 12px; color: #555; }
-            hr { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
-        ";
-
-        string fullHtml = "<!DOCTYPE html><html><head><meta charset='utf-8'/><style>"
-                        + css
-                        + "</style></head><body>"
-                        + html
-                        + "</body></html>";
-
-        // HTML → PDF via PuppeteerSharp
-        var pdfBytes = await RenderHtmlToPdf(fullHtml);
+        var pdfBytes = await _protocolPdfService.ConvertMarkdownToPdf(generatedText);
 
         return File(pdfBytes, "application/pdf", "protocol.pdf");
     }
 
-    private async Task<byte[]> RenderHtmlToPdf(string html)
+    private static async Task<string> ExtractPdfText(IFormFile file)
     {
-        await new BrowserFetcher().DownloadAsync();
+        using var ms = new MemoryStream();
+        await file.CopyToAsync(ms);
+        ms.Position = 0;
 
-        await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+        var sb = new System.Text.StringBuilder();
+        using var document = PdfDocument.Open(ms);
+        foreach (Page page in document.GetPages())
         {
-            Headless = true,
-            Args = new[] { "--no-sandbox", "--disable-setuid-sandbox" }
-        });
+            sb.AppendLine(page.Text);
+        }
+        return sb.ToString();
+    }
 
-        await using var page = await browser.NewPageAsync();
-        await page.SetContentAsync(html, new NavigationOptions
-        {
-            WaitUntil = new[] { WaitUntilNavigation.Networkidle0 }  // lowercase 'i'
-        });
+    [HttpPost("medical-analysis")]
+    public async Task<IActionResult> AnalyzeMedicalText([FromBody] MedicalAnalysisRequest request)
+    {
+        if (request == null || string.IsNullOrWhiteSpace(request.Text))
+            return BadRequest("Clinical text is required.");
 
-        return await page.PdfDataAsync(new PdfOptions
-        {
-            Format = PaperFormat.A4,
-            MarginOptions = new MarginOptions
-            {
-                Top = "2cm", Bottom = "2cm",
-                Left = "2cm", Right = "2cm"
-            },
-            PrintBackground = true
-        });
+        if (string.IsNullOrWhiteSpace(request.AnalysisType))
+            return BadRequest("Analysis type is required.");
+
+        var result = await _awsService.AnalyzeMedicalText(
+            request.Text,
+            request.AnalysisType,
+            request.ProcedureType);
+
+        return Ok(result);
+    }
+
+    [HttpPost("drug-pipeline")]
+    public async Task<IActionResult> AnalyzeDrugPipeline([FromBody] DrugPipelineRequest request)
+    {
+        if (request == null || string.IsNullOrWhiteSpace(request.Text))
+            return BadRequest("Pipeline text is required.");
+
+        var result = await _awsService.AnalyzeDrugPipeline(request.Text);
+
+        return Ok(result);
+    }
+
+    [HttpPost("markdown-pdf")]
+    public async Task<IActionResult> DownloadMarkdownAsPdf([FromBody] MarkdownPdfRequest request)
+    {
+        if (request == null || string.IsNullOrWhiteSpace(request.Text))
+            return BadRequest("Text is required.");
+
+        var fileName = string.IsNullOrWhiteSpace(request.FileName)
+            ? "analysis.pdf"
+            : request.FileName;
+
+        if (!fileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            fileName += ".pdf";
+
+        var pdfBytes = await _protocolPdfService.ConvertMarkdownToPdf(request.Text);
+
+        return File(pdfBytes, "application/pdf", fileName);
     }
 }
+
+public record MedicalAnalysisRequest(string Text, string AnalysisType, string? ProcedureType);
+
+public record DrugPipelineRequest(string Text);
+
+public record MarkdownPdfRequest(string Text, string? FileName);

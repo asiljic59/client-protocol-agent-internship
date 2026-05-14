@@ -18,6 +18,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<AwsService>();
+builder.Services.AddScoped<ProtocolPdfService>();
 
 QuestPDF.Settings.License = LicenseType.Evaluation;
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a React + .NET 8 web application that connects to three Amazon Bedrock Agents from the `amazon-bedrock-agents-healthcare-lifesciences` repository.
+This project is a React + .NET 8 web application that connects to three Amazon Bedrock Agents from the [`amazon-bedrock-agents-healthcare-lifesciences`](https://github.com/aws-samples/amazon-bedrock-agents-healthcare-lifesciences) repository. (CLICK ON NAME TO SEE GIT REPORISTORY)
 
 The application has three main workflows:
 
